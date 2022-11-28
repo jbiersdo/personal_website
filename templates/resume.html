@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>John's Biography</title>
+{% endblock %}
+
+{% block body %}
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/bio/">Biography</a>
+    <a href="/resume/">Resume</a>
+    <div class="dropdown">
+        <button class="dropbtn">Planner
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="/to_do_list/">To Do List</a>
+            <a href="/grocery/">Grocery List</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">MtG
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="#">MtG Decks</a>
+            <a href="#">MtG Collection</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Links
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="https://www.linkedin.com/in/johnbiersdorf">LinkedIn</a>
+            <a href="https://github.com/jbiersdo">GitHub</a>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <iframe style="width: 100%;border:none;" 
+        src="/static/John_Biersdorf_Resume.pdf", height="1150" id="Iframe">
+    </iframe>
+</div>
+{% endblock %}

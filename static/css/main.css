@@ -1,0 +1,159 @@
+/* Navbar container */
+.navbar {
+	overflow: hidden;
+	background-color: #333;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+  
+/* Links inside the navbar */
+.navbar a {
+	float: left;
+	font-size: 16px;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+  
+/* The dropdown container */
+.dropdown {
+	float: left;
+	overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+	font-size: 16px;
+	border: none;
+	outline: none;
+	color: white;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit; /* Important for vertical align on mobile phones */
+	margin: 0; /* Important for vertical align on mobile phones */
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+	background-color: red;
+}
+  
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+  
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+  
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+body, html {
+    margin: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: black;
+    color:gray;
+    lighting-color:blue;
+    outline-color:white;
+    text-align:center;
+}
+center{
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+table, th, td{
+    border: 1px solid #02484d;
+    border-spacing: 0;
+    width: 33%;
+    font-size:14px;
+    margin-left: auto;
+    margin-right: auto;
+    border: .5px;
+    border-style: solid;
+    border-color: #02484d;
+}
+
+tr:nth-child(even) {
+  background-color: #1f1f1e;
+}
+
+input[type=text], select {
+  width: 50;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #013438;
+  border-radius: 6px;
+  border-color: #013438;
+  box-sizing: border-box;
+  background-color:#1f1f1e;
+  color:white;
+  margin-right: 40px;
+
+}
+
+input[type=submit] {
+  width: 50;
+  background-color: #02484d;
+  color: white;
+  padding: 10px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #03282b;
+  color:gray;
+  
+}
+
+.button {
+  background-color: #02484d;
+  border: none;
+  color: white;
+  padding: 2px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #03282b;
+  border: 4px;
+  color: white;
+  border-color: white;
+  padding: 2px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  color:gray;
+}

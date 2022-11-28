@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Grocery List</title>
+{% endblock %}
+
+{% block body %}
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/bio/">Biography</a>
+    <a href="/resume/">Resume</a>
+    <div class="dropdown">
+        <button class="dropbtn">Planner
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="/to_do_list/">To Do List</a>
+            <a href="/grocery/">Grocery List</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">MtG
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="#">MtG Decks</a>
+            <a href="#">MtG Collection</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Links
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="https://www.linkedin.com/in/johnbiersdorf">LinkedIn</a>
+            <a href="https://github.com/jbiersdo">GitHub</a>
+        </div>
+    </div>
+</div>
+<div class="content">
+    <h1 style="text-align: center">Grocery List</h1>
+    {% if items|length < 1 %}
+    <h2 style="text-align: center">There are no items in the grocery list. Add one below.</h2>
+    {% else %}
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Added</th>
+            <th>Actions</th>
+        </tr>
+        {% for item in items %}    
+            <tr>
+                <td>{{ item.description }}</td>
+                <td>{{ item.quant }}</td>
+                <td>{{ item.date_created.date() }}</td>
+                <td>
+                    <a href="/delete_grocery/{{item.id}}">Delete</a>
+                    <br>
+                    <a href="/update_grocery/{{item.id}}">Update</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <div class="form">
+        <form action="/grocery/" method="POST">
+            <input type="text" name="description" id="description">
+            <input type="text" name="quant" id="quant">
+            <input type="submit" value="Add Item">
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>John Biersdorf's Website</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1 style="text-align: center">JOHN BIERSDORF</h1>
+</div>
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/bio/">Biography</a>
+    <a href="/resume/" title=>Resume</a>
+    <div class="dropdown">
+        <button class="dropbtn">Planner
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="/to_do_list/">To Do List</a>
+            <a href="/grocery/">Grocery List</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">MtG
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="#">MtG Decks</a>
+            <a href="#">MtG Collection</a>
+        </div>
+    </div>
+    <div class="dropdown">
+        <button class="dropbtn">Links
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="https://www.linkedin.com/in/johnbiersdorf">LinkedIn</a>
+            <a href="https://github.com/jbiersdo">GitHub</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
