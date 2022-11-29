@@ -1,6 +1,8 @@
-from flask import Flask, render_template, url_for, request, redirect, make_response
+from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+import requests
+import re
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///john_website.db'		# Tells app where the database is located
@@ -9,7 +11,7 @@ with app.app_context():
 	db = SQLAlchemy(app)	# todo database intialization.
 
 class Todo(db.Model):
-	"""Class for task 'to do' object"""
+	"""Class for task 'to do' SQLAlchemy Table"""
 	id = db.Column(db.Integer, primary_key=True) 	# Integer that references the ID of each entry.
 	content	= db.Column(db.String(200), nullable=False)	# Holds content for each task.
 	date_created = db.Column(db.DateTime, default=datetime.utcnow)
@@ -18,7 +20,7 @@ class Todo(db.Model):
 		return '<Task %r>' % self.id
 
 class Grocery(db.Model):
-	"""Class for Grocery item object"""
+	"""Class for Grocery item SQLAlchemy Table"""
 	id = db.Column(db.Integer, primary_key=True) 	# Integer that references the ID of each entry.
 	description	= db.Column(db.String(200), nullable=False)	# Holds description for each item.
 	quant = db.Column(db.String(50), nullable=True)
@@ -27,9 +29,21 @@ class Grocery(db.Model):
 	def __repr__(self):
 		return '<Task %r>' % self.id
 
+class MagicCard(db.Model):
+	"""Class for establishing each Magic Card SQLAlchemy Table"""
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(40), nullable=False)
+	quant = db.Column(db.Integer, nullable=False)
+	mana = db.Column(db.String(40), nullable=False)
+	art_large = db.Column(db.String(40), nullable=False)
+
 @app.route('/', methods=['POST', 'GET'])
 def main_page():
 	return render_template('main.html')
+
+@app.route('/bio/')
+def bio():
+	return render_template('bio.html')
 
 @app.route('/resume/')
 def resume():
@@ -120,6 +134,65 @@ def update_grocery(id):
 			return 'There was an issue updating your item'
 	else:
 		return render_template('update_grocery.html', item=item)
+
+@app.route('/mtg_col/', methods=['GET', 'POST'])
+def mtg_col():
+	if request.method == "POST":
+		input_name = request.form['name']	# Stores name input from user
+		api_name = 'https://api.scryfall.com/cards/named?fuzzy=' + input_name.replace(' ', '+')
+		magic = requests.get(api_name).json()
+		
+		card_quant = request.form['quant']
+		card_name = magic['name']
+		card_large_art = magic['image_uris']['large']
+		
+		mana_cost = magic['mana_cost']
+		mana_symbols = re.findall('{*.}', mana_cost)
+
+		symbols = requests.get('https://api.scryfall.com/symbology').json()
+		mana_img = []
+		for element in mana_symbols:
+			for symbol in symbols['data']:
+				if element == symbol['symbol']:
+					mana_img.append(symbol['svg_uri'])
+				
+		new_card = MagicCard(name=card_name, quant=card_quant, mana=','.join(mana_img), art_large=card_large_art)
+
+		try:
+			db.session.add(new_card)
+			db.session.commit()
+			return redirect('/mtg_col/')
+		except:
+			return "There was an issue adding your item."
+	else:
+		cards = MagicCard.query.order_by(MagicCard.name).all()
+		return render_template('mtg_col.html', cards=cards)
+
+@app.route('/delete_mtg_col/<int:id>')
+def delete_mtg_col(id):
+	card_to_delete = MagicCard.query.get_or_404(id)
+
+	try:
+		db.session.delete(card_to_delete)
+		db.session.commit()
+		return redirect('/mtg_col/')
+	except:
+		return 'There was a problem deleting that item'
+
+@app.route('/update_mtg_col/<int:id>', methods=['GET', 'POST'])
+def update_mtg_col(id):
+	card = MagicCard.query.get_or_404(id)
+	
+	if request.method == 'POST':
+		card.quant = request.form['quant']
+
+		try:
+			db.session.commit()
+			return redirect('/mtg_col/')
+		except:
+			return 'There was an issue updating your item'
+	else:
+		return render_template('update_mtg_col.html', card=card)
 
 if __name__ == '__main__':
 	app.run(debug = True)

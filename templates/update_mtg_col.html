@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Update Card Quantity</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Update Quantity</h1>
+
+    <div class="form">
+        <form action="/update_mtg_col/{{card.id}}" method="POST">
+            <input type="text" name="quant" id="quant", value="{{card.quant}}">
+            <input type="submit" value="Update">
+        </form>
+    </div>
+</div>
+{% endblock %}

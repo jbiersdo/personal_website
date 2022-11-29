@@ -94,6 +94,26 @@ table, th, td{
     border-color: #02484d;
 }
 
+td{
+  position: relative;
+}
+
+.art-large{
+  display: none;
+  z-index: 10;
+}
+
+.mana{
+  display: inline;
+}
+
+td:hover .art-large{
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
 tr:nth-child(even) {
   background-color: #1f1f1e;
 }
@@ -157,3 +177,5 @@ input[type=submit]:hover {
   cursor: pointer;
   color:gray;
 }
+
+
